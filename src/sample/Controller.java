@@ -19,21 +19,28 @@ public class Controller {
     public TextField txtFileName,txtFileResult;
 
     @FXML
-    public TextArea txtTags;
+    public TextArea txtAreaTags;
 
     @FXML
     public Button btnChooseFile;
 
     public void SeachButton(ActionEvent actionEvent) {
 
-        Vector<String> searchTags=new Vector<String>();
-        String txtArchivo="";
-        CsvTool a=new CsvTool();
+        String txtArchivo=txtFileName.getText();
+        String txtTags=txtAreaTags.getText();
+        String txtResult=txtFileResult.getText();
 
-        txtArchivo=txtFileName.getText();
-        searchTags=a.LeerEtiquetasPorComa(txtTags.getText());
+        if(txtArchivo.isEmpty()||txtTags.isEmpty()||txtResult.isEmpty()){
+            System.out.println("campos incompletos");
+            return;
+        }
+
+        CsvTool csvCrtl=new CsvTool();
+        Vector<String> searchTags=new Vector<String>();
+
+        searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
         //searchTags=a.leerEtiquetas();
-        int coincidencias=a.leerCsv(txtArchivo,searchTags);
+        int coincidencias=csvCrtl.leerCsv(txtArchivo,searchTags);
         System.out.println("se encontró "+coincidencias+" coincidencias");
         //a.buscarCSV(searchTags);
         // a.crearCsv();
@@ -42,12 +49,12 @@ public class Controller {
 
         //System.out.println(searchTags);
 
-        Clean();
+        CleanButton();
     }
-    public void Clean(){
+    public void CleanButton(){
         txtFileName.setText("");
         txtFileResult.setText("");
-        txtTags.setText("");
+        txtAreaTags.setText("");
 
     }
 
