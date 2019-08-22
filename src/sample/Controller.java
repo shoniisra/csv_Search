@@ -16,24 +16,21 @@ import java.util.Vector;
 public class Controller {
 
     @FXML
-    public TextField txtArchivoInicio,txtArchivoResultado;
+    public TextField txtFileName,txtFileResult;
+
     @FXML
     public TextArea txtTags;
 
     @FXML
     public Button btnChooseFile;
 
-    public void Buscar(ActionEvent actionEvent) {
-       // System.out.println("todo bien");
-        System.out.println(txtArchivoInicio.getText());
-        txtArchivoResultado.setText(txtArchivoInicio.getText());
+    public void SeachButton(ActionEvent actionEvent) {
 
         Vector<String> searchTags=new Vector<String>();
         String txtArchivo="";
-        System.out.println("**********Lectura de Archivos csv*********");
         CsvTool a=new CsvTool();
 
-        txtArchivo=txtArchivoInicio.getText();
+        txtArchivo=txtFileName.getText();
         searchTags=a.LeerEtiquetasPorComa(txtTags.getText());
         //searchTags=a.leerEtiquetas();
         int coincidencias=a.leerCsv(txtArchivo,searchTags);
@@ -48,8 +45,8 @@ public class Controller {
         Clean();
     }
     public void Clean(){
-        txtArchivoInicio.setText("");
-        txtArchivoResultado.setText("");
+        txtFileName.setText("");
+        txtFileResult.setText("");
         txtTags.setText("");
 
     }
