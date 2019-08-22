@@ -11,13 +11,13 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #353535;">
          <children>
+            <TextField fx:id="txtArchivoInicio" layoutX="289.0" layoutY="65.0" prefHeight="31.0" prefWidth="262.0" promptText="ej: texto.csv" />
             <Text fill="#e1e1e1" layoutX="79.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del Archivo csv" />
             <Text fill="#dddddd" layoutX="79.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etiquetas de Búsqueda" wrappingWidth="140.71613252162933" />
-            <TextArea fx:id="txtTags" cacheShape="false" centerShape="false" layoutX="281.0" layoutY="118.0" prefHeight="99.0" prefWidth="272.0" promptText="separe los valores con ;" scaleShape="false" />
+            <TextArea fx:id="txtTags" cacheShape="false" centerShape="false" layoutX="281.0" layoutY="118.0" prefHeight="99.0" prefWidth="272.0" promptText="separe los valores con ," scaleShape="false" />
             <Text fill="#ebebeb" layoutX="79.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Archivo Generado" />
-            <Button layoutX="239.0" layoutY="307.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="122.0" text="Buscar" />
+            <Button layoutX="239.0" layoutY="307.0" mnemonicParsing="false" onAction="#Buscar" prefHeight="32.0" prefWidth="122.0" text="Buscar" />
             <Text fill="#fcfcfc" layoutX="31.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 27; -fx-font-style: bold;" text="Csv Finder" />
-            <TextField fx:id="txtArchivoInicio" layoutX="289.0" layoutY="65.0" prefHeight="31.0" prefWidth="262.0" promptText="ej: texto.csv" />
             <TextField fx:id="txtArchivoResultado" layoutX="289.0" layoutY="243.0" prefHeight="31.0" prefWidth="262.0" promptText="ej: resultado.csv" />
          </children>
       </Pane>
