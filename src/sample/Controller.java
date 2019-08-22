@@ -1,13 +1,16 @@
 package sample;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.Vector;
 
 public class Controller {
@@ -16,6 +19,9 @@ public class Controller {
     public TextField txtArchivoInicio,txtArchivoResultado;
     @FXML
     public TextArea txtTags;
+
+    @FXML
+    public Button btnChooseFile;
 
     public void Buscar(ActionEvent actionEvent) {
        // System.out.println("todo bien");
@@ -29,9 +35,9 @@ public class Controller {
 
         txtArchivo=txtArchivoInicio.getText();
         searchTags=a.LeerEtiquetasPorComa(txtTags.getText());
-        System.out.println("Vector de ingreso "+searchTags);
         //searchTags=a.leerEtiquetas();
-        a.leerCsv(txtArchivo,searchTags);
+        int coincidencias=a.leerCsv(txtArchivo,searchTags);
+        System.out.println("se encontró "+coincidencias+" coincidencias");
         //a.buscarCSV(searchTags);
         // a.crearCsv();
         //a.escribirCSV();
@@ -45,6 +51,10 @@ public class Controller {
         txtArchivoInicio.setText("");
         txtArchivoResultado.setText("");
         txtTags.setText("");
+
+    }
+
+    public void ChooseFile(ActionEvent actionEvent) {
 
     }
 }

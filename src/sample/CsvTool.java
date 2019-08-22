@@ -46,25 +46,36 @@ public class CsvTool {
         return  searchTags;
     }
 
-    public void leerCsv(String fileName,Vector<String> searchTags) {
+    public int leerCsv(String fileName,Vector<String> searchTags) {
         //Vector<String> searchTags=new Vector<String>();
-        String[] etiquetasBusqueda = searchTags.toArray(new String[searchTags.size()]);
+
         System.out.println("Leyendo archivo: "+fileName);
-        System.out.println("Buscando: "+etiquetasBusqueda);
+        System.out.println("Buscando: ");
+        String[] etiquetasBusqueda = searchTags.toArray(new String[searchTags.size()]);
+        for (int i=0;i<etiquetasBusqueda.length;i++){
+            etiquetasBusqueda[i]= etiquetasBusqueda[i].toLowerCase();
+            System.out.print(" "+etiquetasBusqueda[i]+"  --  ");
+        }
+        System.out.println(" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><");
+
         String[] fila = null;
         String[] filaSelected=null;
+        int findSomething=0;
         boolean agregado=false;
         boolean encuentraCoincidencia=true;
+        String columnaLowerCase;
         try {
             crearCSV();
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
              while((fila = csvReader.readNext()) != null) {
                 for (String columna : fila) {
                     for (String etiqueta:etiquetasBusqueda){
-                        encuentraCoincidencia = columna.contains(etiqueta);
+                        columnaLowerCase = columna.toLowerCase();
+                        encuentraCoincidencia = columnaLowerCase.contains(etiqueta);
                         if (encuentraCoincidencia) {
                             escribirCSV(fila);
                             agregado=true;
+                            findSomething++;
                             break;
                         }
 
@@ -81,9 +92,12 @@ public class CsvTool {
             csvReader.close();
         }catch (IOException e){
             System.out.println("Error al intentar leer el archivo especificado");
+            findSomething=-1;
         }catch (Exception o){
             System.out.println("Error al leer archivo");
+            findSomething=-1;
         }
+        return findSomething;
     }
 
     public void crearCSV() throws IOException {

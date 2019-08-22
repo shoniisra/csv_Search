@@ -19,7 +19,7 @@
             <Button layoutX="239.0" layoutY="307.0" mnemonicParsing="false" onAction="#Buscar" prefHeight="32.0" prefWidth="122.0" text="Buscar" />
             <Text fill="#fcfcfc" layoutX="31.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 27; -fx-font-style: bold;" text="Csv Finder" />
             <TextField fx:id="txtArchivoResultado" layoutX="289.0" layoutY="243.0" prefHeight="31.0" prefWidth="262.0" promptText="ej: resultado.csv" />
-            <Button layoutX="240.0" layoutY="65.0" mnemonicParsing="false" onAction="#ChooseFile" text="Elegir Archivo" />
+            <Button fx:id="btnChooseFile" layoutX="240.0" layoutY="65.0" mnemonicParsing="false" onAction="#ChooseFile" text="Elegir Archivo" />
          </children>
       </Pane>
    </children>
