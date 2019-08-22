@@ -36,8 +36,10 @@ public class Controller {
         }
 
         CsvTool csvCrtl=new CsvTool();
+        String[] searchTagss;
         Vector<String> searchTags=new Vector<String>();
 
+        //txtArchivo=GetFile();
         searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
         //searchTags=a.leerEtiquetas();
         int coincidencias=csvCrtl.leerCsv(txtArchivo,searchTags);

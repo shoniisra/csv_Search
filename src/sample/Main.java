@@ -37,7 +37,6 @@ public class Main extends Application {
                 chosen.setText(null);
             }
         });
-
         VBox layout = new VBox(10, button, chosen);
         layout.setMinWidth(400);
         layout.setAlignment(Pos.CENTER);
@@ -50,6 +49,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 400));
         //primaryStage.setScene(new Scene(layout));
         primaryStage.show();
+
 
     }
 
