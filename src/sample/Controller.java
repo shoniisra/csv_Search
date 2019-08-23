@@ -1,13 +1,10 @@
 package sample;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -16,31 +13,40 @@ import java.util.Vector;
 public class Controller {
 
     @FXML
-    public TextField txtFileName,txtFileResult;
+    private TextField txtFileName,txtFileResult;
 
     @FXML
-    public TextArea txtAreaTags;
+    private TextArea txtAreaTags;
 
     @FXML
-    public Button btnChooseFile;
+    private Button btnChooseFile;
+
+    @FXML
+    private CheckBox ckMayus,ckColumn;
+
+    @FXML
+    private Spinner spColumn;
 
     public void SeachButton(ActionEvent actionEvent) {
 
         String txtArchivo=txtFileName.getText();
         String txtTags=txtAreaTags.getText();
-        String txtResult=txtFileResult.getText();
+        Boolean bolMayus=ckMayus.isSelected();
+        Boolean bolColumn=ckColumn.isSelected();
+        CsvTool csvCrtl=new CsvTool();
+        String[] searchTags;
 
-        if(txtArchivo.isEmpty()||txtTags.isEmpty()||txtResult.isEmpty()){
-            System.out.println("campos incompletos");
+        if(txtArchivo.isEmpty()||txtTags.isEmpty()){
+            System.out.println("Campos incompletos");
+            ShowAlert("Campos Inconpletos");
+
             return;
         }
 
-        CsvTool csvCrtl=new CsvTool();
-        String[] searchTags;
-        //Vector<String> searchTags=new Vector<String>();
 
-        //txtArchivo=GetFile();
+
         searchTags=csvCrtl.GetSearchTags(txtTags);
+
         int coincidencias=csvCrtl.leerCsv(txtArchivo,searchTags);
 
         //searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
@@ -56,6 +62,15 @@ public class Controller {
 
         CleanButton();
     }
+
+    public void ShowAlert(String alertMsg){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("CSV - Alerta de Error");
+        alert.setHeaderText(null);
+        alert.setContentText(alertMsg);
+
+        alert.showAndWait();
+    }
     public void CleanButton(){
         txtFileName.setText("");
         txtFileResult.setText("");
@@ -65,5 +80,15 @@ public class Controller {
 
     public void ChooseFile(ActionEvent actionEvent) {
 
+    }
+
+    public void ActivarSpinner(ActionEvent actionEvent) {
+        if(ckColumn.isSelected()){
+            spColumn.setVisible(true);
+            spColumn.setDisable(false);
+        }else{
+            spColumn.setDisable(true);
+            spColumn.setVisible(false);
+        }
     }
 }
