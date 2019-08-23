@@ -36,13 +36,16 @@ public class Controller {
         }
 
         CsvTool csvCrtl=new CsvTool();
-        String[] searchTagss;
-        Vector<String> searchTags=new Vector<String>();
+        String[] searchTags;
+        //Vector<String> searchTags=new Vector<String>();
 
         //txtArchivo=GetFile();
-        searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
-        //searchTags=a.leerEtiquetas();
+        searchTags=csvCrtl.GetSearchTags(txtTags);
         int coincidencias=csvCrtl.leerCsv(txtArchivo,searchTags);
+
+        //searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
+        //searchTags=csvCrtl.leerEtiquetasPorConsola();
+
         System.out.println("se encontró "+coincidencias+" coincidencias");
         //a.buscarCSV(searchTags);
         // a.crearCsv();

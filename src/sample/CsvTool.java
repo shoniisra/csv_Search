@@ -29,7 +29,13 @@ public class CsvTool {
         return list;
     }
 
-    public Vector<String> leerEtiquetas() {
+    public String[] GetSearchTags( String txt_tags){
+        Vector<String> vctr_tags = new Vector<String>(Arrays.asList(txt_tags.split("\\s*,\\s*")));
+        String[] array_tags = vctr_tags.toArray(new String[vctr_tags.size()]);
+        return array_tags;
+    }
+
+    public Vector<String> leerEtiquetasPorConsola() {
         Vector<String> searchTags=new Vector<String>();
 
         String nombre;
@@ -46,12 +52,7 @@ public class CsvTool {
         return  searchTags;
     }
 
-    public int leerCsv(String fileName,Vector<String> searchTags) {
-        //Vector<String> searchTags=new Vector<String>();
-
-        System.out.println("Leyendo archivo: "+fileName);
-        System.out.println("Buscando: ");
-        String[] etiquetasBusqueda = searchTags.toArray(new String[searchTags.size()]);
+    public int leerCsv(String fileName,String[] etiquetasBusqueda) {
         for (int i=0;i<etiquetasBusqueda.length;i++){
             etiquetasBusqueda[i]= etiquetasBusqueda[i].toLowerCase();
             System.out.print(" "+etiquetasBusqueda[i]+"  --  ");
@@ -107,6 +108,7 @@ public class CsvTool {
         ){
         }
     }
+
     public void escribirCSV(String[] filaCSV) throws IOException {
         try (
                 Writer miwriter = new FileWriter("busquedaResult.csv", true);
@@ -116,9 +118,5 @@ public class CsvTool {
         }
     }
 
-    public void buscarCSV(Vector<String> searchTags) {
-    }
 
-    public void crearCsv() {
-    }
 }
