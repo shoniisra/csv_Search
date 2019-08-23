@@ -52,6 +52,47 @@ public class CsvTool {
         return  searchTags;
     }
 
+    public int leerCsvRespectMayus(String fileName,String[] etiquetasBusqueda) {
+        String[] fila = null;
+        String[] filaSelected=null;
+        int findSomething=0;
+        boolean agregado=false;
+        boolean encuentraCoincidencia=true;
+        try {
+            crearCSV();
+            CSVReader csvReader = new CSVReader(new FileReader(fileName));
+            while((fila = csvReader.readNext()) != null) {
+                for (String columna : fila) {
+                    for (String etiqueta:etiquetasBusqueda){
+                        encuentraCoincidencia = columna.contains(etiqueta);
+                        if (encuentraCoincidencia) {
+                            escribirCSV(fila);
+                            agregado=true;
+                            findSomething++;
+                            break;
+                        }
+
+                    }
+                    if(agregado){
+                        break;
+                    }
+
+                    agregado=false;
+
+                }
+
+            }
+            csvReader.close();
+        }catch (IOException e){
+            System.out.println("Error al intentar leer el archivo especificado");
+            findSomething=-1;
+        }catch (Exception o){
+            System.out.println("Error al leer archivo");
+            findSomething=-1;
+        }
+        return findSomething;
+    }
+
     public int leerCsv(String fileName,String[] etiquetasBusqueda) {
         for (int i=0;i<etiquetasBusqueda.length;i++){
             etiquetasBusqueda[i]= etiquetasBusqueda[i].toLowerCase();

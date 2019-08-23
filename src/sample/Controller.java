@@ -37,22 +37,26 @@ public class Controller {
         String[] searchTags;
 
         if(txtArchivo.isEmpty()||txtTags.isEmpty()){
-            System.out.println("Campos incompletos");
             ShowAlert("Campos Inconpletos");
-
             return;
+        }
+
+        searchTags=csvCrtl.GetSearchTags(txtTags);
+
+        if(bolMayus){
+            int coincidencias=csvCrtl.leerCsvRespectMayus(txtArchivo,searchTags);
+            System.out.println("se encontró "+coincidencias+" coincidencias");
+        }else{
+            int coincidencias=csvCrtl.leerCsv(txtArchivo,searchTags);
+            System.out.println("se encontró "+coincidencias+" coincidencias");
         }
 
 
 
-        searchTags=csvCrtl.GetSearchTags(txtTags);
-
-        int coincidencias=csvCrtl.leerCsv(txtArchivo,searchTags);
-
         //searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
         //searchTags=csvCrtl.leerEtiquetasPorConsola();
 
-        System.out.println("se encontró "+coincidencias+" coincidencias");
+
         //a.buscarCSV(searchTags);
         // a.crearCsv();
         //a.escribirCSV();
