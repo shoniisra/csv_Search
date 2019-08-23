@@ -6,8 +6,10 @@ import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
+import java.util.List;
 import java.util.Vector;
 
 public class Controller {
@@ -26,6 +28,9 @@ public class Controller {
 
     @FXML
     private Spinner spColumn;
+
+    List<String> lstFile;
+
 
     public void SeachButton(ActionEvent actionEvent) {
         int num_column=0,num_coincidencias=0;
@@ -48,8 +53,11 @@ public class Controller {
         searchTags=csvCrtl.GetSearchTags(txtTags);
         num_coincidencias=csvCrtl.readCsv(txtArchivo,searchTags,num_column,bol_respectMayus);
 
-
-        System.out.println("se encontró "+num_coincidencias+" coincidencias");
+        if(num_coincidencias==-1){
+            ShowAlert("Error: No se pudo Acceder al Archivo");
+            return;
+        }
+       
 
         //searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
         //searchTags=csvCrtl.leerEtiquetasPorConsola();
@@ -81,8 +89,15 @@ public class Controller {
 
     }
 
+    @FXML
     public void ChooseFile(ActionEvent actionEvent) {
-
+        FileChooser fc=new FileChooser();
+        int aux=0;
+        fc.getExtensionFilters().add(aux,new ExtensionFilter("Archivo Csv","*.csv"));
+        File f=fc.showOpenDialog(null);
+        if(f!=null){
+            txtFileName.setText(f.getAbsolutePath());
+        }
     }
 
     public void ActivarSpinner(ActionEvent actionEvent) {
