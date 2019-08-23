@@ -22,7 +22,7 @@ public class Controller {
     private Button btnChooseFile;
 
     @FXML
-    private CheckBox ckMayus,ckColumn;
+    private CheckBox ckMayus,ckColumn,ckQuote;
 
     @FXML
     private Spinner spColumn;
@@ -44,7 +44,7 @@ public class Controller {
         if(bol_respectColumn) {
             num_column=(int) spColumn.getValue();
         }
-
+        csvCrtl.setComillas(ckQuote.isSelected());
         searchTags=csvCrtl.GetSearchTags(txtTags);
         num_coincidencias=csvCrtl.readCsv(txtArchivo,searchTags,num_column,bol_respectMayus);
 
@@ -73,6 +73,7 @@ public class Controller {
 
         alert.showAndWait();
     }
+
     public void CleanButton(){
         txtFileName.setText("");
         txtFileResult.setText("");

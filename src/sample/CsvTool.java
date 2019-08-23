@@ -11,6 +11,8 @@ import java.util.Vector;
 
 public class CsvTool {
 
+    private Boolean comillas;
+
     public String[] GetSearchTags( String txt_tags){
         Vector<String> vctr_tags = new Vector<String>(Arrays.asList(txt_tags.split("\\s*,\\s*")));
         String[] array_tags = vctr_tags.toArray(new String[vctr_tags.size()]);
@@ -42,12 +44,25 @@ public class CsvTool {
     }
 
     public void writeCSV(String[] rowCSV) throws IOException {
-        try (
-                Writer miwriter = new FileWriter("searchResult.csv", true);
-                CSVWriter writer = new CSVWriter(miwriter, ',', '"', "\r\n");
-        ){
-            writer.writeNext(rowCSV);
+        if(this.comillas){
+            try (
+                    Writer miwriter = new FileWriter("searchResult.csv", true);
+                    CSVWriter writer = new CSVWriter(miwriter, ',', '"', "\r\n");
+            ){
+                writer.writeNext(rowCSV);
+
+            }
+        }else{
+            try (
+                    Writer miwriter = new FileWriter("searchResult.csv", true);
+                    CSVWriter writer = new CSVWriter(miwriter, ',', CSVWriter.NO_QUOTE_CHARACTER, "\r\n");
+            ){
+                writer.writeNext(rowCSV);
+
+            }
         }
+
+
     }
 
     public int CompareRow(String[] csvRow,String[] searchTags,int searchColumn,boolean respectMayus) throws IOException {
@@ -97,5 +112,9 @@ public class CsvTool {
             mystringarray[i]= mystringarray[i].toLowerCase();
         }
         return  mystringarray;
+    }
+
+    public void setComillas(Boolean comillas) {
+        this.comillas = comillas;
     }
 }
