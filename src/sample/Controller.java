@@ -41,14 +41,12 @@ public class Controller {
             return;
         }
 
-        if(bol_respectColumn){
+        if(bol_respectColumn) {
             num_column=(int) spColumn.getValue();
         }
 
         searchTags=csvCrtl.GetSearchTags(txtTags);
-
-
-            num_coincidencias=csvCrtl.leerCsvRespectMayus(txtArchivo,searchTags,num_column,bol_respectMayus);
+        num_coincidencias=csvCrtl.readCsv(txtArchivo,searchTags,num_column,bol_respectMayus);
 
 
         System.out.println("se encontró "+num_coincidencias+" coincidencias");
