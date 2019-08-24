@@ -7,8 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
@@ -40,6 +41,8 @@ public class Controller {
         Boolean bol_respectColumn=ckColumn.isSelected();
         CsvTool csvCrtl=new CsvTool();
         String[] searchTags;
+        csvCrtl.downloadCSV("ejemplo.csv");
+        if(1==1)return;
 
         if(txtArchivo.isEmpty()||txtTags.isEmpty()){
             ShowAlert("Error: Campos Incompletos");
@@ -56,8 +59,36 @@ public class Controller {
         if(num_coincidencias==-1){
             ShowAlert("Error: No se pudo Acceder al Archivo");
             return;
+        }else if(num_coincidencias==0){
+            ShowAlert(" No se Encontraron Coincidencias");
+        }else{
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Guardar Archivo");
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Extension *.csv", "*.csv");
+            fileChooser.setSelectedExtensionFilter(extFilter);
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(null);
+
+            String extension = "";
+            String filepath=file.getAbsolutePath();
+
+            int i = filepath.lastIndexOf('.');
+            if (i > 0) {
+                extension = filepath.substring(i+1);
+            }
+
+            if(extension.equals("txt")||extension.equals("csv"))
+            {
+                System.out.println("extension "+extension);
+            }else{
+                filepath=filepath+".csv";
+            }
+            if(csvCrtl.downloadCSV(filepath)==0){
+                ShowAlert(" Error al Guardar el Archivo");
+            }
         }
-       
+
 
         //searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
         //searchTags=csvCrtl.leerEtiquetasPorConsola();
@@ -92,6 +123,7 @@ public class Controller {
     @FXML
     public void ChooseFile(ActionEvent actionEvent) {
         FileChooser fc=new FileChooser();
+        fc.setTitle("Escoger Archivo");
         int aux=0;
         fc.getExtensionFilters().add(aux,new ExtensionFilter("Archivo Csv","*.csv"));
         File f=fc.showOpenDialog(null);
@@ -111,5 +143,21 @@ public class Controller {
             spColumn.setVisible(false);
 
         }
+    }
+
+    public void mySaveFile(){
+
+    }
+    private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter = null;
+
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (Exception ex) {
+           ShowAlert("Error: No se pudo Guardar Correctamente");
+        }
+
     }
 }

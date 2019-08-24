@@ -24,7 +24,7 @@ public class CsvTool {
         int findSomething=0;
         try {
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
-            createCSV();
+            createCSV("searchResult.csv");
                 while((csvRow = csvReader.readNext()) != null) {
                     findSomething+=CompareRow(csvRow,searchTags,searchColumn, respectMayus);
                 }
@@ -35,18 +35,18 @@ public class CsvTool {
         return findSomething;
     }
 
-    public void createCSV() throws IOException {
+    public void createCSV(String archivo) throws IOException {
         try (
-                Writer miwriter = new FileWriter("searchResult.csv", false);
+                Writer miwriter = new FileWriter(archivo, false);
                 CSVWriter writer = new CSVWriter(miwriter, ',', '"', "\r\n");
         ){
         }
     }
 
-    public void writeCSV(String[] rowCSV) throws IOException {
+    public void writeCSV(String[] rowCSV,String archivo) throws IOException {
         if(this.comillas){
             try (
-                    Writer miwriter = new FileWriter("searchResult.csv", true);
+                    Writer miwriter = new FileWriter(archivo, true);
                     CSVWriter writer = new CSVWriter(miwriter, ',', '"', "\r\n");
             ){
                 writer.writeNext(rowCSV);
@@ -54,7 +54,7 @@ public class CsvTool {
             }
         }else{
             try (
-                    Writer miwriter = new FileWriter("searchResult.csv", true);
+                    Writer miwriter = new FileWriter(archivo, true);
                     CSVWriter writer = new CSVWriter(miwriter, ',', CSVWriter.NO_QUOTE_CHARACTER, "\r\n");
             ){
                 writer.writeNext(rowCSV);
@@ -82,7 +82,7 @@ public class CsvTool {
                 for (String etiqueta:auxsearchTags){
                     encuentraCoincidencia = columna.contains(etiqueta);
                     if (encuentraCoincidencia) {
-                        writeCSV(csvRow);
+                        writeCSV(csvRow,"searchResult.csv");
                         agregado=true;
                         findSomething++;
                         break;
@@ -96,7 +96,7 @@ public class CsvTool {
             for (String etiqueta:auxsearchTags){
                 encuentraCoincidencia = columna.contains(etiqueta);
                 if (encuentraCoincidencia) {
-                    writeCSV(csvRow);
+                    writeCSV(csvRow,"searchResult.csv");
                     findSomething++;
                     break;
                 }
@@ -118,5 +118,26 @@ public class CsvTool {
         this.comillas = comillas;
     }
 
+    public int downloadCSV(String fileName){
+        String[] csvRow;
+        int findSomething=0;
+        try {
+            Writer miwriter = new FileWriter(fileName, false);
+            CSVReader csvReader = new CSVReader(new FileReader("searchResult.csv"));
+            while((csvRow = csvReader.readNext()) != null) {
+                    CSVWriter writer = new CSVWriter(miwriter, ',', '"', "\r\n");
+                    writer.writeNext(csvRow);
+               
+
+
+
+                findSomething++;
+            }
+            csvReader.close();
+        }catch (Exception o){
+            findSomething=-1;
+        }
+        return findSomething;
+    }
 
 }
