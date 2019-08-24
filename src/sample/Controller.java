@@ -33,7 +33,7 @@ public class Controller {
     List<String> lstFile;
 
 
-    public void SeachButton(ActionEvent actionEvent) {
+    public void SeachButton(ActionEvent actionEvent) throws IOException {
         int num_column=0,num_coincidencias=0;
         String txtArchivo=txtFileName.getText();
         String txtTags=txtAreaTags.getText();
@@ -84,9 +84,9 @@ public class Controller {
             }else{
                 filepath=filepath+".csv";
             }
-            if(csvCrtl.downloadCSV(filepath)==0){
+     /*       if(csvCrtl.downloadCSV(filepath)){
                 ShowAlert(" Error al Guardar el Archivo");
-            }
+            }*/
         }
 
 

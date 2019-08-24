@@ -6,7 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 public class CsvTool {
@@ -122,17 +124,20 @@ public class CsvTool {
         String[] csvRow;
         int findSomething=0;
         try {
-            Writer miwriter = new FileWriter(fileName, false);
+            Writer miwriter = new FileWriter(fileName, true);
+            List<String[]> a = new ArrayList<String[]>();
+            CSVWriter writer = new CSVWriter(miwriter, ',', CSVWriter.NO_QUOTE_CHARACTER, "\r\n");
+           // CSVWriter writer= new CSVWriter(miwriter, ',', '"', "\r\n");
             CSVReader csvReader = new CSVReader(new FileReader("searchResult.csv"));
             while((csvRow = csvReader.readNext()) != null) {
-                    CSVWriter writer = new CSVWriter(miwriter, ',', '"', "\r\n");
-                    writer.writeNext(csvRow);
-               
+                a.add(csvRow);
+                    //writer.writeNext(csvRow);
 
 
 
                 findSomething++;
             }
+            writer.writeAll(a);
             csvReader.close();
         }catch (Exception o){
             findSomething=-1;
