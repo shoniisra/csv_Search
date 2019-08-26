@@ -37,13 +37,11 @@ public class Controller {
         int num_column=0,num_coincidencias=0;
         String txtArchivo=txtFileName.getText();
         String txtTags=txtAreaTags.getText();
+        String txtresult=txtFileResult.getText();
         Boolean bol_respectMayus=ckMayus.isSelected();
         Boolean bol_respectColumn=ckColumn.isSelected();
         CsvTool csvCrtl=new CsvTool();
         String[] searchTags;
-      //  csvCrtl.downloadCSV("ejemplo.csv");
-       // if(1==1)return;
-
         if(txtArchivo.isEmpty()||txtTags.isEmpty()){
             ShowAlert("Error: Campos Incompletos");
             return;
@@ -54,7 +52,7 @@ public class Controller {
         }
         csvCrtl.setComillas(ckQuote.isSelected());
         searchTags=csvCrtl.GetSearchTags(txtTags);
-        num_coincidencias=csvCrtl.readCsv(txtArchivo,searchTags,num_column,bol_respectMayus);
+        num_coincidencias=csvCrtl.readCsv(txtArchivo,txtresult,searchTags,num_column,bol_respectMayus);
 
         if(num_coincidencias==-1){
             ShowAlert("Error: No se pudo Acceder al Archivo");
@@ -62,22 +60,9 @@ public class Controller {
         }else if(num_coincidencias==0){
             ShowAlert(" No se Encontraron Coincidencias");
         }else{
+            ShowAlert("Búsqueda Exitosa, se han encontrado "+num_coincidencias+" coincidencias");
             CleanButton();
         }
-
-
-        //searchTags=csvCrtl.LeerEtiquetasPorComa(txtTags);
-        //searchTags=csvCrtl.leerEtiquetasPorConsola();
-
-
-        //a.buscarCSV(searchTags);
-        // a.crearCsv();
-        //a.escribirCSV();
-
-
-        //System.out.println(searchTags);
-
-
     }
 
     public void ShowAlert(String alertMsg){
@@ -149,19 +134,4 @@ public class Controller {
         }
     }
 
-    public void mySaveFile(){
-
-    }
-    private void SaveFile(String content, File file){
-        try {
-            FileWriter fileWriter = null;
-
-            fileWriter = new FileWriter(file);
-            fileWriter.write(content);
-            fileWriter.close();
-        } catch (Exception ex) {
-           ShowAlert("Error: No se pudo Guardar Correctamente");
-        }
-
-    }
 }

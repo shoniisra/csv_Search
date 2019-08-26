@@ -21,14 +21,14 @@ public class CsvTool {
         return array_tags;
     }
 
-    public int readCsv(String fileName,String[] searchTags,int searchColumn,boolean respectMayus) {
+    public int readCsv(String fileName,String result, String[] searchTags,int searchColumn,boolean respectMayus) {
         String[] csvRow;
         int findSomething=0;
         try {
             CSVReader csvReader = new CSVReader(new FileReader(fileName));
-            createCSV("searchResult.csv");
+            createCSV(result);
                 while((csvRow = csvReader.readNext()) != null) {
-                    findSomething+=CompareRow(csvRow,searchTags,searchColumn, respectMayus);
+                    findSomething+=CompareRow(csvRow,result,searchTags,searchColumn, respectMayus);
                 }
             csvReader.close();
         }catch (Exception o){
@@ -67,7 +67,7 @@ public class CsvTool {
 
     }
 
-    public int CompareRow(String[] csvRow,String[] searchTags,int searchColumn,boolean respectMayus) throws IOException {
+    public int CompareRow(String[] csvRow,String txtresult,String[] searchTags,int searchColumn,boolean respectMayus) throws IOException {
         int findSomething=0;
         boolean agregado=false;
         boolean encuentraCoincidencia;
@@ -84,7 +84,7 @@ public class CsvTool {
                 for (String etiqueta:auxsearchTags){
                     encuentraCoincidencia = columna.contains(etiqueta);
                     if (encuentraCoincidencia) {
-                        writeCSV(csvRow,"searchResult.csv");
+                        writeCSV(csvRow,txtresult);
                         agregado=true;
                         findSomething++;
                         break;
@@ -98,7 +98,7 @@ public class CsvTool {
             for (String etiqueta:auxsearchTags){
                 encuentraCoincidencia = columna.contains(etiqueta);
                 if (encuentraCoincidencia) {
-                    writeCSV(csvRow,"searchResult.csv");
+                    writeCSV(csvRow,txtresult);
                     findSomething++;
                     break;
                 }
@@ -120,29 +120,6 @@ public class CsvTool {
         this.comillas = comillas;
     }
 
-    public int downloadCSV(String fileName){
-        String[] csvRow;
-        int findSomething=0;
-        try {
-            Writer miwriter = new FileWriter(fileName, true);
-            List<String[]> a = new ArrayList<String[]>();
-            CSVWriter writer = new CSVWriter(miwriter, ',', CSVWriter.NO_QUOTE_CHARACTER, "\r\n");
-           // CSVWriter writer= new CSVWriter(miwriter, ',', '"', "\r\n");
-            CSVReader csvReader = new CSVReader(new FileReader("searchResult.csv"));
-            while((csvRow = csvReader.readNext()) != null) {
-                a.add(csvRow);
-                    //writer.writeNext(csvRow);
 
-
-
-                findSomething++;
-            }
-            writer.writeAll(a);
-            csvReader.close();
-        }catch (Exception o){
-            findSomething=-1;
-        }
-        return findSomething;
-    }
 
 }

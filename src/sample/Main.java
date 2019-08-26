@@ -47,7 +47,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Csv Tool");
         primaryStage.setScene(new Scene(root, 425, 650));
-        //primaryStage.setScene(new Scene(layout));
         primaryStage.show();
 
 
