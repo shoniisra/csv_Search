@@ -41,8 +41,8 @@ public class Controller {
         Boolean bol_respectColumn=ckColumn.isSelected();
         CsvTool csvCrtl=new CsvTool();
         String[] searchTags;
-        csvCrtl.downloadCSV("ejemplo.csv");
-        if(1==1)return;
+      //  csvCrtl.downloadCSV("ejemplo.csv");
+       // if(1==1)return;
 
         if(txtArchivo.isEmpty()||txtTags.isEmpty()){
             ShowAlert("Error: Campos Incompletos");
@@ -62,31 +62,7 @@ public class Controller {
         }else if(num_coincidencias==0){
             ShowAlert(" No se Encontraron Coincidencias");
         }else{
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Guardar Archivo");
-
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Extension *.csv", "*.csv");
-            fileChooser.setSelectedExtensionFilter(extFilter);
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showSaveDialog(null);
-
-            String extension = "";
-            String filepath=file.getAbsolutePath();
-
-            int i = filepath.lastIndexOf('.');
-            if (i > 0) {
-                extension = filepath.substring(i+1);
-            }
-
-            if(extension.equals("txt")||extension.equals("csv"))
-            {
-                System.out.println("extension "+extension);
-            }else{
-                filepath=filepath+".csv";
-            }
-     /*       if(csvCrtl.downloadCSV(filepath)){
-                ShowAlert(" Error al Guardar el Archivo");
-            }*/
+            CleanButton();
         }
 
 
@@ -101,7 +77,7 @@ public class Controller {
 
         //System.out.println(searchTags);
 
-        CleanButton();
+
     }
 
     public void ShowAlert(String alertMsg){
@@ -132,6 +108,34 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void ChooseSaveFile(){
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Guardar Archivo");
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Extension *.csv", "*.csv");
+            fileChooser.setSelectedExtensionFilter(extFilter);
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(null);
+            if( file!=null) {
+                String extension = "";
+                String filepath = file.getAbsolutePath();
+
+                int i = filepath.lastIndexOf('.');
+                if (i > 0) {
+                    extension = filepath.substring(i + 1);
+                }
+
+                if (extension.equals("txt") || extension.equals("csv")) {
+
+                } else {
+                    filepath = filepath + ".csv";
+                }
+                txtFileResult.setText(filepath);
+
+            }
+    }
     public void ActivarSpinner(ActionEvent actionEvent) {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,10000, 0);
         this.spColumn.setValueFactory(valueFactory);

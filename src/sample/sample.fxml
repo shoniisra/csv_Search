@@ -25,12 +25,12 @@
                   <TextField fx:id="txtFileName" layoutX="202.0" layoutY="31.0" opacity="0.35" prefHeight="31.0" prefWidth="182.0" promptText="ej: texto.csv" />
                </children>
             </Pane>
-            <Pane layoutX="12.0" layoutY="160.0" prefHeight="125.0" prefWidth="403.0" style="-fx-background-color: #282D33;">
+            <Pane layoutX="12.0" layoutY="157.0" prefHeight="99.0" prefWidth="403.0" style="-fx-background-color: #282D33;">
                <children>
                   <Text fill="#dddddd" layoutX="15.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etiquetas de Búsqueda" wrappingWidth="245.71613252162933" />
-                  <TextArea fx:id="txtAreaTags" cacheShape="false" centerShape="false" layoutX="15.0" layoutY="29.0" prefHeight="76.0" prefWidth="372.0" promptText="separe los valores con ," scaleShape="false" />
+                  <TextArea fx:id="txtAreaTags" cacheShape="false" centerShape="false" layoutX="15.0" layoutY="29.0" prefHeight="54.0" prefWidth="372.0" promptText="separe los valores con ," scaleShape="false" />
                </children></Pane>
-            <Pane layoutX="12.0" layoutY="305.0" prefHeight="196.0" prefWidth="403.0" style="-fx-background-color: #282D33;">
+            <Pane layoutX="12.0" layoutY="279.0" prefHeight="196.0" prefWidth="403.0" style="-fx-background-color: #282D33;">
                <children>
                   <Text fill="#ebebeb" layoutX="15.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opciones de Búsqueda" />
                   <CheckBox fx:id="ckMayus" layoutX="45.0" layoutY="55.0" mnemonicParsing="false" text="Respetar Mayúsculas" textFill="WHITE" />
@@ -38,9 +38,15 @@
                   <Spinner fx:id="spColumn" disable="true" layoutX="300.0" layoutY="100.0" prefHeight="15.0" prefWidth="75.0" visible="false" />
                   <CheckBox fx:id="ckQuote" layoutX="46.0" layoutY="141.0" mnemonicParsing="false" text="Usar Delimitador de &quot;" textFill="WHITE" />
                </children></Pane>
-            <TextField fx:id="txtFileResult" layoutX="110.0" layoutY="535.0" opacity="0.35" prefHeight="31.0" prefWidth="262.0" promptText="ej: resultado.csv" />
-            <Button layoutX="70.0" layoutY="580.0" mnemonicParsing="false" onAction="#SeachButton" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #1E88E4;" text="Buscar" />
-            <Button layoutX="230.0" layoutY="580.0" mnemonicParsing="false" onAction="#CleanButton" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #D53634;" text="Limpiar" />
+            <Button layoutX="71.0" layoutY="604.0" mnemonicParsing="false" onAction="#SeachButton" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #1E88E4;" text="Buscar" />
+            <Button layoutX="230.0" layoutY="604.0" mnemonicParsing="false" onAction="#CleanButton" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #D53634;" text="Limpiar" />
+            <Pane layoutX="11.0" layoutY="492.0" prefHeight="80.0" prefWidth="403.0" style="-fx-background-color: #282D33;">
+               <children>
+                  <Text fill="#e1e1e1" layoutX="15.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardar Archivo Como:" />
+                  <Button fx:id="btnChooseFile1" layoutX="15.0" layoutY="35.0" mnemonicParsing="false" onAction="#ChooseSaveFile" style="-fx-background-color: #28C5DD;" text="Elegir Ubicacion" />
+                  <TextField fx:id="txtFileResult" layoutX="166.0" layoutY="32.0" opacity="0.35" prefHeight="31.0" prefWidth="218.0" promptText="ej: resultado.csv" />
+               </children>
+            </Pane>
 
          </children>
       </Pane>
